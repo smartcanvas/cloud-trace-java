@@ -28,20 +28,23 @@ public class AsyncCloudTraceWriter implements TraceWriter {
 
     @Override
     public void writeSpan(TraceSpanData span) throws CloudTraceException {
-        CloudTracingDeferredTask task = new CloudTracingDeferredTask(span);
-        enqueue(task);
+        if (span != null) { 
+            CloudTracingDeferredTask task = new CloudTracingDeferredTask(span);
+            enqueue(task);
+        }
     }
 
     @Override
     public void writeSpans(List<TraceSpanData> spans) throws CloudTraceException {
-        CloudTracingDeferredTask task = new CloudTracingDeferredTask(spans);
-        enqueue(task);
+        if(spans != null && !spans.isEmpty()) {
+            CloudTracingDeferredTask task = new CloudTracingDeferredTask(spans);
+            enqueue(task);
+        }
     }
 
     @Override
     public void writeSpans(TraceSpanData... spans) throws CloudTraceException {
-        CloudTracingDeferredTask task = new CloudTracingDeferredTask(Arrays.asList(spans));
-        enqueue(task);
+        writeSpans(Arrays.asList(spans));
     }
 
     private void enqueue(CloudTracingDeferredTask task) {
