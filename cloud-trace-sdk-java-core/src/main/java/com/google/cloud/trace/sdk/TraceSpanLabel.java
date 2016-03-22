@@ -14,11 +14,16 @@
 
 package com.google.cloud.trace.sdk;
 
+import java.io.Serializable;
+
 /**
  * Additional data item that can be attached to a {@link TraceSpanData} instance.
  */
-public class TraceSpanLabel {
-  private final String key;
+public class TraceSpanLabel implements Serializable {
+    
+private static final long serialVersionUID = 1L;
+    
+private final String key;
   private final String value;
 
   /**

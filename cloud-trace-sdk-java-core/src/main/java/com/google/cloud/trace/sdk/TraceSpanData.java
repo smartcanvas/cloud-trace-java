@@ -14,6 +14,7 @@
 
 package com.google.cloud.trace.sdk;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +23,11 @@ import java.util.Map;
  * Tracks the key information about a trace span, including timings and
  * data attributes.
  */
-public class TraceSpanData {
+public class TraceSpanData implements Serializable {
 
-  private final TraceContext context;
+private static final long serialVersionUID = 1L;
+    
+private final TraceContext context;
   private final BigInteger parentSpanId;
   private String name;
   private long startTimeMillis;

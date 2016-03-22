@@ -14,17 +14,16 @@
 
 package com.google.cloud.trace.sdk;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpStatusCodes;
-import com.google.cloud.trace.api.v1.model.Trace;
-
-import org.codehaus.jackson.map.ObjectMapper;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpStatusCodes;
+import com.google.cloud.trace.api.v1.model.Trace;
 
 /**
  * Reads traces from the public Google Cloud Trace API.

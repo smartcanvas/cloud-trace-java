@@ -14,19 +14,6 @@
 
 package com.google.cloud.trace.sdk;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpStatusCodes;
-import com.google.cloud.trace.api.v1.model.Trace;
-import com.google.cloud.trace.api.v1.model.TraceSpan;
-import com.google.cloud.trace.api.v1.model.Traces;
-import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +24,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javax.inject.Inject;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpStatusCodes;
+import com.google.cloud.trace.api.v1.model.Trace;
+import com.google.cloud.trace.api.v1.model.TraceSpan;
+import com.google.cloud.trace.api.v1.model.Traces;
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 
 /**
  * Writes traces to the public Google Cloud Trace API.
@@ -77,6 +79,11 @@ public class CloudTraceWriter implements TraceWriter, CanInitFromProperties {
     this.objectMapper = new ObjectMapper();
   }
 
+  @Inject
+  public CloudTraceWriter(ObjectMapper objectMapper) {
+      this.objectMapper = objectMapper;
+  }
+  
   public CloudTraceRequestFactory getRequestFactory() {
     return requestFactory;
   }

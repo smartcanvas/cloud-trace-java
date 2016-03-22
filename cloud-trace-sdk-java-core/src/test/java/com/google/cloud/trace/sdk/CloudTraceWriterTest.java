@@ -20,10 +20,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.http.GenericUrl;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,7 +98,7 @@ public class CloudTraceWriterTest {
     JsonNode trace = null;
     JsonNode trace2 = null;
     JsonNode tmpTrace = traces.get("traces").get(0);
-    if (tmpTrace.get("traceId").getTextValue().equals(TRACEID_1)) {
+    if (tmpTrace.get("traceId").asText().equals(TRACEID_1)) {
       trace = tmpTrace;
       trace2 = traces.get("traces").get(1);
     } else {
@@ -106,16 +106,16 @@ public class CloudTraceWriterTest {
       trace2 = tmpTrace;
     }
 
-    assertEquals(PROJECT_ID, trace.get("projectId").getTextValue());
-    assertEquals(TRACEID_1, trace.get("traceId").getTextValue());
+    assertEquals(PROJECT_ID, trace.get("projectId").asText());
+    assertEquals(TRACEID_1, trace.get("traceId").asText());
     assertEquals(2, trace.get("spans").size());
-    assertEquals("span1", trace.get("spans").get(0).get("name").getTextValue());
-    assertEquals("span2", trace.get("spans").get(1).get("name").getTextValue());
+    assertEquals("span1", trace.get("spans").get(0).get("name").asText());
+    assertEquals("span2", trace.get("spans").get(1).get("name").asText());
 
-    assertEquals(PROJECT_ID, trace2.get("projectId").getTextValue());
-    assertEquals(TRACEID_2, trace2.get("traceId").getTextValue());
+    assertEquals(PROJECT_ID, trace2.get("projectId").asText());
+    assertEquals(TRACEID_2, trace2.get("traceId").asText());
     assertEquals(1, trace2.get("spans").size());
-    assertEquals("span3", trace2.get("spans").get(0).get("name").getTextValue());
+    assertEquals("span3", trace2.get("spans").get(0).get("name").asText());
     verifyOnePatch();
   }
 
@@ -190,7 +190,7 @@ public class CloudTraceWriterTest {
     JsonNode traces = objectMapper.readValue(patchBody, JsonNode.class);
     assertEquals(1, traces.get("traces").size());
     JsonNode trace = traces.get("traces").get(0);
-    assertEquals(TRACEID_2, trace.get("traceId").getTextValue());
+    assertEquals(TRACEID_2, trace.get("traceId").asText());
 
     verifyOnePatch();
   }
