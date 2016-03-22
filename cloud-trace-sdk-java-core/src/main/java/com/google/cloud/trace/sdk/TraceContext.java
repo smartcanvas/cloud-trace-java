@@ -14,6 +14,7 @@
 
 package com.google.cloud.trace.sdk;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,11 @@ import java.util.Map;
  * Identifies the trace and span and whether it is currently slated to be written out.
  * Potentially forwarded over the wire for use in propagation to child spans.
  */
-public class TraceContext {
-  /**
+public class TraceContext implements Serializable {
+    
+  private static final long serialVersionUID = 1L;
+
+/**
    * The custom header name.
    */
   public static final String TRACE_HEADER = "X-Cloud-Trace-Context";
