@@ -21,7 +21,7 @@ public class AsyncCloudTraceWriter implements TraceWriter {
     private Queue queue;
     
     @Inject
-    private AsyncCloudTraceWriter(Queue queue) {
+    public AsyncCloudTraceWriter(Queue queue) {
         super();
         this.queue = queue;
     }
